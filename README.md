@@ -1,2 +1,4 @@
-# CLASS_BENCH
-CLASS Benchmarks, yes
+CLASS_BENCH
+-----------
+
+A benchmark study with **CLASS**
