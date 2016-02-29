@@ -1,2 +1,2 @@
 # CLASS_BENCH
-CLASS Benchmarks
+CLASS Benchmarks, yes
