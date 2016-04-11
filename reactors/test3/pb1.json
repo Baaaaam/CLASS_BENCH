@@ -1,0 +1,93 @@
+{
+  "materials": {
+    "pwr_uox": {"attributes": {"recipe": true}, 
+      "constraints": [ 
+                    ["U235", 3.25],
+                    ["U238", 96.75],
+                    ["O16", 13.44]],
+      "metadata": {}
+    }, 
+    "spent_pwr_uox": 
+    {"attributes": {"recipe": false}, 
+      "constraints": [], 
+      "metadata": {
+        "suggestedComposition": [
+                                ["U234"   , 2.88551e-06],
+                                ["U235"   ,  0.00573857],
+                                ["U236"   ,  0.00452986],
+                                ["U238"   ,    0.977249],
+                                ["NP237"  , 0.000575072],
+                                ["PU238"  , 0.000251141],
+                                ["PU239"  ,  0.00593915],
+                                ["PU240"  ,  0.00270459],
+                                ["PU241"  ,  0.00174216],
+                                ["PU242"  , 0.000902859],
+                                ["AM241"  , 4.36865e-05],
+                                ["AM242m" , 8.81985e-07],
+                                ["AM243"  , 0.000206983],
+                                ["CM242"  , 2.2778e-05 ],
+                                ["CM243"  , 5.91655e-07],
+                                ["CM244"  , 8.44813e-05],
+                                ["CM245"  , 5.38651e-06]
+        ]
+      }
+    }
+  },
+  
+  "facilities": {
+    "lwr_reactor": {
+      "metadata": {"type": "reactor"},
+      "attributes": {
+        "thermalPower": ["float", "GWt"],
+        "efficiency": ["float", "percent"],
+        "cycleLength": ["int", "EFPD"],
+        "capacityFactor": ["float", "percent"],
+        "lifetime":  ["int", "year"],
+        "fuels":  ["nea_pwr_uox"],
+        "batches": ["int", "", ["pwr_uox"]],
+        "coreLoading": ["float", "tHM", ["pwr_uox"]],
+        "burnup": ["float", "GWd/tHM", ["pwr_uox"]],
+        "storageTime": ["int", "year", ["pwr_uox"]],
+        "coolingTime": ["int", "year", ["pwr_uox"]]
+      },
+      "constraints": [
+                      ["thermalPower", 2.8387],
+                      ["efficiency", 34.0],
+                      ["cycleLength", 365.25],
+                      ["capacityFactor", 100],
+                      ["lifetime", 120],
+                      ["batches", 3, "pwr_uox"],
+                      ["coreLoading", 82, "pwr_uox"],
+                      ["burnup", 43.03, "pwr_uox"],
+                      ["storageTime", 0, "pwr_uox"],
+                      ["coolingTime", 0, "pwr_uox"]],
+      "inputs": ["pwr_uox"],
+      "outputs": ["spent_pwr_uox"]
+    },
+    
+    "repository": {
+      "metadata": {
+        "type":"repository"
+      },
+      "attributes": {},
+      "constraints": [],
+      "inputs": ["spent_pwr_uox"]
+    }
+  },
+  
+  "fuelCycle": {
+    "attributes": {
+      "grid": "year",
+      "initialConditions": {
+        "lwr_reactor_power": 1,
+        "repository": 1
+      },
+      "demands": {}
+    },
+    "constraints": {
+      "grid": [0, 120],
+      "demands": {}
+    }
+  }
+  
+}
